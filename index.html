@@ -369,9 +369,13 @@
             }, [messages, isTyping]);
 
             const callGeminiAPI = async (userQuery) => {
-                // --- API KEY (INJECTED) ---
+                // --- ATENÇÃO: COLE SUA API KEY AQUI ---
                 const apiKey = "AIzaSyA-4HrMrbL343Uy21t-2nYh5QWMQBp2C1s"; 
-                // --------------------------
+                // --------------------------------------
+
+                if (!apiKey) {
+                    return "⚠️ Erro: Chave de API (API Key) não configurada no código. Por favor, adicione sua chave no arquivo HTML.";
+                }
 
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                 
@@ -392,15 +396,22 @@
                         body: JSON.stringify(payload)
                     });
 
+                    if (!response.ok) {
+                        return `Erro na API (Status ${response.status}). Verifique sua chave e limites.`;
+                    }
+
                     const data = await response.json();
-                    if (data.candidates && data.candidates[0].content) {
-                        return data.candidates[0].content.parts[0].text;
+                    // Safe extraction using optional chaining
+                    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    
+                    if (text) {
+                        return text;
                     } else {
-                        throw new Error("Resposta inválida da API");
+                        return "Não consegui processar a resposta. Tente novamente.";
                     }
                 } catch (error) {
                     console.error("Gemini API Error:", error);
-                    return "Erro de conexão com o Gemini. Verifique se a API Key foi configurada corretamente no código.";
+                    return "Erro de conexão com o Gemini. Verifique sua internet ou a chave de API.";
                 }
             };
 
