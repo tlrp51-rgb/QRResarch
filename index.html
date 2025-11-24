@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>QR Investimentos | Coverage: Ludfor Energia</title>
     
     <!-- Tailwind CSS -->
@@ -25,7 +25,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #e2e8f0; }
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #e2e8f0; -webkit-tap-highlight-color: transparent; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
@@ -51,6 +51,9 @@
         tailwind.config = {
             theme: {
                 extend: {
+                    screens: {
+                        'xs': '375px',
+                    },
                     colors: {
                         qr: {
                             dark: '#0B1120',
@@ -75,29 +78,27 @@
 
         // --- CONTEXTO PARA IA ---
         const LUDFOR_CONTEXT = `
-            Você é um analista sênior de Investment Banking da QR Investimentos.
-            Você está analisando a empresa Ludfor Energia para uma possível aquisição de participação minoritária (30-40%).
+            Você é um analista sênior de Investment Banking da QR Investimentos (Advisor IA).
             
-            DADOS DA EMPRESA (LUDFOR ENERGIA):
-            - CEO: Douglas Ludwig (~90% das cotas). Filho do fundador Valdir Ludwig.
-            - Sócio: Glauber Ludwig (~10%).
+            MISSÃO:
+            Sua função é cruzar os dados internos da LUDOR ENERGIA com informações de mercado em tempo real (PLD, Notícias, Regulação) para apoiar a tese de investimento.
+            Sempre que buscar um dado externo, EXPLIQUE como ele impacta a Ludfor (Positivamente ou Negativamente).
+
+            DADOS INTERNOS DA LUDFOR:
+            - CEO: Douglas Ludwig (~90%).
             - CFO: André Passari.
-            - Estrutura (Organograma Set/25): Holding "Ludfor Energia Participações".
-            - Subsidiárias Chave: Ludfor Gestora, Ludfor Comercializadora, Origem Energia (Geração), Simplifica Energia (Varejo/GD), Trifase (Engenharia PE), Enerbrax (Gestão RS), Alka (Tech).
-            - Veículos de Trading: DNA, Aquarium, Trust, Fuel, NuEnergy.
-            - Atuação: Plataforma 360° (Gestão, Comercialização, Geração, Serviços).
-            - Presença Geográfica: Matriz RS (Bento Gonçalves), Filiais em SP, GO, SC, BA, AL, PE, PR, MG.
+            - Receita 2024: R$ 652M (+112%). Margem Bruta caiu para 10% (Trading).
+            - Estrutura: Holding Ludfor Energia Participações controla:
+              1. Comercializadoras (DNA, Aquarium, Trust, Fuel, NuEnergy).
+              2. Geração (Origem Energia - UFV Salinas, CGH Bandiera, etc).
+              3. Varejo/GD (Simplifica Energia).
+              4. Serviços (Trifase, Enerbrax).
+            - Footprint: RS (HQ), SP, GO, SC, BA, AL, PE, PR, MG.
             
-            DADOS FINANCEIROS RECENTES:
-            - Receita Líquida 2024: R$ 652 milhões (+112% YoY).
-            - Margem Bruta: Caiu de ~24% (2023) para ~10% (2024).
-            
-            TESES DE INVESTIMENTO:
-            1. Consolidação de Mercado.
-            2. Geração Própria (Origem Energia com diversos ativos UFV/CGH).
-            3. Abertura de Mercado.
-            
-            Responda de forma executiva, direta e profissional.
+            TESES:
+            1. Consolidação (M&A).
+            2. Verticalização em Geração (Mitigar risco de trading).
+            3. Abertura do ACL (Varejo).
         `;
 
         // --- COMPONENTS ---
@@ -119,7 +120,9 @@
             DollarSign: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>,
             TrendingUp: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>,
             MapPin: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>,
-            Activity: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            Activity: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>,
+            Menu: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>,
+            X: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         };
 
         // --- DATASETS ---
@@ -130,24 +133,24 @@
         ];
 
         const marketData = [
-            { title: "Market Share (Clientes Livres)", value: "8%", sub: "Nacional" },
-            { title: "Share Regional (RS)", value: "56%", sub: "Líder Absoluto" },
-            { title: "Volume Gerido", value: "1.2 GW", sub: "Médio" },
-            { title: "Base de Clientes", value: "~5.000", sub: "+1.400 em 2024" }
+            { title: "Market Share", value: "8%", sub: "Nacional (Livre)" },
+            { title: "Share RS", value: "56%", sub: "Líder Absoluto" },
+            { title: "Volume", value: "1.2 GW", sub: "Médio Gerido" },
+            { title: "Clientes", value: "~5.000", sub: "+1.400 em 2024" }
         ];
 
         const docsList = [
             { id: 0, name: "DF Simplificado Organograma set25.pdf", size: "2.1 MB", date: "Hoje", type: "Corporativo" },
             { id: 1, name: "Balanço Patrimonial Auditado 2024.pdf", size: "4.2 MB", date: "15 Fev 2025", type: "Financeiro" },
             { id: 2, name: "Apresentação Institucional Ludfor.pdf", size: "8.5 MB", date: "02 Mar 2025", type: "Institucional" },
-            { id: 3, name: "Relatório de Sustentabilidade (EcoLudfor).pdf", size: "3.1 MB", date: "10 Jan 2025", type: "ESG" },
-            { id: 4, name: "Estudo de Viabilidade - Expansão Solar.xlsx", size: "1.8 MB", date: "20 Fev 2025", type: "Técnico" },
-            { id: 5, name: "Minuta Contrato de Confidencialidade (NDA).docx", size: "0.5 MB", date: "01 Nov 2025", type: "Legal" },
+            { id: 3, name: "Relatório Sustentabilidade (EcoLudfor).pdf", size: "3.1 MB", date: "10 Jan 2025", type: "ESG" },
+            { id: 4, name: "Estudo Viabilidade - Expansão Solar.xlsx", size: "1.8 MB", date: "20 Fev 2025", type: "Técnico" },
+            { id: 5, name: "Minuta NDA.docx", size: "0.5 MB", date: "01 Nov 2025", type: "Legal" },
         ];
         
         const dealStages = [
             { id: 1, label: "NDA", completed: true },
-            { id: 2, label: "Preliminar", completed: true, current: true },
+            { id: 2, label: "Prelim.", completed: true, current: true },
             { id: 3, label: "NBO", completed: false },
             { id: 4, label: "Diligence", completed: false },
             { id: 5, label: "Binding", completed: false },
@@ -157,27 +160,27 @@
         // --- SUB-COMPONENTS ---
 
         const DealProgressBar = () => (
-            <div className="w-full bg-slate-800 border border-slate-700 rounded-xl p-6 mb-6">
+            <div className="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 md:p-6 mb-6">
                 <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-white font-bold flex items-center gap-2">
+                    <h3 className="text-white font-bold flex items-center gap-2 text-sm md:text-base">
                         <Icons.Activity className="text-qr-primary"/> Status do Deal
                     </h3>
-                    <span className="px-3 py-1 bg-blue-900/30 text-blue-300 rounded-full text-xs border border-blue-800">
-                        Fase 2: Análise Preliminar
+                    <span className="px-2 py-1 bg-blue-900/30 text-blue-300 rounded-full text-[10px] md:text-xs border border-blue-800">
+                        Fase 2: Análise
                     </span>
                 </div>
                 <div className="relative flex items-center justify-between w-full">
                     <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-700 -z-0"></div>
                     {dealStages.map((stage, index) => (
                         <div key={stage.id} className="relative z-10 flex flex-col items-center">
-                            <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all ${
+                            <div className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-2 transition-all ${
                                 stage.completed || stage.current 
                                 ? 'bg-qr-secondary border-qr-secondary text-white' 
                                 : 'bg-slate-800 border-slate-600 text-gray-500'
                             }`}>
-                                {stage.completed ? <Icons.CheckCircle width={16} /> : <span className="text-xs">{index + 1}</span>}
+                                {stage.completed ? <Icons.CheckCircle className="w-3 h-3 md:w-4 md:h-4" /> : <span className="text-[10px] md:text-xs">{index + 1}</span>}
                             </div>
-                            <span className={`mt-2 text-xs font-medium ${stage.current ? 'text-qr-primary' : 'text-gray-500'}`}>
+                            <span className={`mt-2 text-[9px] md:text-xs font-medium hidden md:block ${stage.current ? 'text-qr-primary' : 'text-gray-500'}`}>
                                 {stage.label}
                             </span>
                         </div>
@@ -188,7 +191,7 @@
 
         const MapWidget = () => (
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 h-full flex flex-col">
-                <h3 className="text-white font-bold mb-4 flex items-center gap-2">
+                <h3 className="text-white font-bold mb-4 flex items-center gap-2 text-sm md:text-base">
                     <Icons.MapPin className="text-qr-accent" /> Footprint Geográfico
                 </h3>
                 <div className="flex-1 flex flex-col md:flex-row gap-6 items-center">
@@ -229,15 +232,15 @@
             if (!window.Recharts) return <div className="text-red-500">Chart Error</div>;
             return (
                 <ResponsiveContainer width="100%" height="100%">
-                    <ComposedChart data={data} margin={{top: 20, right: 20, bottom: 20, left: 0}}>
+                    <ComposedChart data={data} margin={{top: 20, right: 0, bottom: 20, left: -20}}>
                         <CartesianGrid stroke="#334155" vertical={false} strokeDasharray="3 3" />
-                        <XAxis dataKey="name" stroke="#94a3b8" />
-                        <YAxis yAxisId="left" stroke="#94a3b8" label={{ value: 'Receita (R$ M)', angle: -90, position: 'insideLeft', fill: '#94a3b8' }} />
-                        <YAxis yAxisId="right" orientation="right" stroke="#10B981" label={{ value: 'Margem Bruta (%)', angle: 90, position: 'insideRight', fill: '#10B981' }} />
-                        <Tooltip contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', color: '#fff' }} />
-                        <Legend />
-                        <Bar yAxisId="left" dataKey="receita" name="Receita Líquida" fill="#3B82F6" barSize={40} radius={[4, 4, 0, 0]} />
-                        <Line yAxisId="right" type="monotone" dataKey="margem" name="Margem Bruta %" stroke="#10B981" strokeWidth={3} dot={{r: 4}} />
+                        <XAxis dataKey="name" stroke="#94a3b8" fontSize={12} />
+                        <YAxis yAxisId="left" stroke="#94a3b8" fontSize={12} />
+                        <YAxis yAxisId="right" orientation="right" stroke="#10B981" fontSize={12} />
+                        <Tooltip contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', color: '#fff', fontSize: '12px' }} />
+                        <Legend wrapperStyle={{fontSize: '12px'}} />
+                        <Bar yAxisId="left" dataKey="receita" name="Receita" fill="#3B82F6" barSize={30} radius={[4, 4, 0, 0]} />
+                        <Line yAxisId="right" type="monotone" dataKey="margem" name="Margem %" stroke="#10B981" strokeWidth={3} dot={{r: 4}} />
                     </ComposedChart>
                 </ResponsiveContainer>
             );
@@ -247,12 +250,12 @@
              if (!window.Recharts) return <div className="text-red-500">Chart Error</div>;
              return (
                 <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={data} margin={{top: 20, right: 20, bottom: 20, left: 0}}>
+                    <BarChart data={data} margin={{top: 20, right: 0, bottom: 20, left: -20}}>
                          <CartesianGrid stroke="#334155" vertical={false} strokeDasharray="3 3" />
-                         <XAxis dataKey="name" stroke="#94a3b8" />
-                         <YAxis stroke="#94a3b8" />
-                         <Tooltip contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', color: '#fff' }} />
-                         <Bar dataKey="lucro" name="Lucro Líquido" fill="#8b5cf6" radius={[4, 4, 0, 0]} label={{ position: 'top', fill: '#fff' }} />
+                         <XAxis dataKey="name" stroke="#94a3b8" fontSize={12} />
+                         <YAxis stroke="#94a3b8" fontSize={12} />
+                         <Tooltip contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', color: '#fff', fontSize: '12px' }} />
+                         <Bar dataKey="lucro" name="Lucro Líq." fill="#8b5cf6" radius={[4, 4, 0, 0]} barSize={30} label={{ position: 'top', fill: '#fff', fontSize: 10 }} />
                     </BarChart>
                 </ResponsiveContainer>
              );
@@ -261,19 +264,18 @@
         const ManagementCard = ({ name, role, bio, expertise, image }) => (
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 flex flex-col md:flex-row gap-6 hover:border-qr-secondary transition-all duration-300">
                 <div className="w-full md:w-1/3 flex flex-col items-center">
-                    <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-qr-primary mb-4 relative shadow-lg shadow-qr-primary/20">
-                         {/* ATENÇÃO: Substitua o src abaixo pelo link real da imagem do executivo */}
-                         <img src={image} alt={name} className="w-full h-full object-cover" />
+                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-qr-primary mb-4 relative shadow-lg shadow-qr-primary/20">
+                         <img src={image} alt={name} className="w-full h-full object-cover" onError={(e) => {e.target.src='https://via.placeholder.com/150/1e293b/ffffff?text=User'}}/>
                     </div>
-                    <h3 className="text-xl font-bold text-white text-center">{name}</h3>
-                    <span className="text-qr-primary font-mono text-sm">{role}</span>
+                    <h3 className="text-lg md:text-xl font-bold text-white text-center">{name}</h3>
+                    <span className="text-qr-primary font-mono text-xs md:text-sm text-center block">{role}</span>
                 </div>
                 <div className="w-full md:w-2/3">
-                    <h4 className="text-gray-400 text-sm uppercase tracking-wider font-bold mb-2">Background & Atuação</h4>
-                    <p className="text-gray-300 text-sm leading-relaxed mb-4 text-justify whitespace-pre-line">{bio}</p>
+                    <h4 className="text-gray-400 text-xs md:text-sm uppercase tracking-wider font-bold mb-2">Background & Atuação</h4>
+                    <p className="text-gray-300 text-xs md:text-sm leading-relaxed mb-4 text-justify whitespace-pre-line">{bio}</p>
                     <div className="flex flex-wrap gap-2">
                         {expertise.map((skill, i) => (
-                            <span key={i} className="px-2 py-1 bg-slate-700 text-xs rounded-md text-slate-300 border border-slate-600">{skill}</span>
+                            <span key={i} className="px-2 py-1 bg-slate-700 text-[10px] md:text-xs rounded-md text-slate-300 border border-slate-600">{skill}</span>
                         ))}
                     </div>
                 </div>
@@ -284,14 +286,14 @@
             const borderColors = { neutral: "border-slate-700", success: "border-qr-accent", danger: "border-qr-danger", warning: "border-qr-warning" };
             const bgColors = { neutral: "bg-slate-800", success: "bg-emerald-900/20", danger: "bg-red-900/20", warning: "bg-amber-900/20" };
             return (
-                <div className={`${bgColors[type]} border ${borderColors[type]} rounded-lg p-5 h-full`}>
-                    <h4 className="font-bold text-white mb-3 flex items-center gap-2">
+                <div className={`${bgColors[type]} border ${borderColors[type]} rounded-lg p-4 md:p-5 h-full`}>
+                    <h4 className="font-bold text-white mb-3 flex items-center gap-2 text-sm md:text-base">
                         {type === 'success' && <Icons.CheckCircle />}
                         {type === 'danger' && <Icons.AlertTriangle />}
                         {type === 'warning' && <Icons.Target />}
                         {title}
                     </h4>
-                    <div className="text-sm text-gray-300 space-y-2">{children}</div>
+                    <div className="text-xs md:text-sm text-gray-300 space-y-2">{children}</div>
                 </div>
             );
         };
@@ -356,7 +358,7 @@
         // --- GEMINI INTEGRATION ---
         const ChatInterface = () => {
             const [messages, setMessages] = useState([
-                { id: 1, role: 'ai', text: 'Olá. Sou o Advisor IA da QR Investimentos. Tenho acesso aos dados financeiros, estratégicos e executivos da Ludfor Energia. Como posso apoiar sua análise hoje?' }
+                { id: 1, role: 'ai', text: 'Olá. Sou o Advisor IA da QR. Posso cruzar dados da Ludfor com informações de mercado (Search). Como posso ajudar?' }
             ]);
             const [input, setInput] = useState("");
             const [isTyping, setIsTyping] = useState(false);
@@ -367,9 +369,9 @@
             }, [messages, isTyping]);
 
             const callGeminiAPI = async (userQuery) => {
-                // --- ATENÇÃO: COLE SUA API KEY AQUI ---
+                // --- API KEY (INJECTED) ---
                 const apiKey = "AIzaSyA-4HrMrbL343Uy21t-2nYh5QWMQBp2C1s"; 
-                // --------------------------------------
+                // --------------------------
 
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                 
@@ -379,7 +381,8 @@
                     }],
                     systemInstruction: {
                         parts: [{ text: LUDFOR_CONTEXT }]
-                    }
+                    },
+                    tools: [{ google_search: {} }] // GOOGLE SEARCH ENABLED
                 };
 
                 try {
@@ -416,21 +419,21 @@
             };
 
             return (
-                <div className="flex flex-col h-[600px] bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
-                    <div className="p-4 bg-slate-900 border-b border-slate-700 flex items-center gap-3">
+                <div className="flex flex-col h-[500px] md:h-[600px] bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div className="p-3 md:p-4 bg-slate-900 border-b border-slate-700 flex items-center gap-3">
                         <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/20">
                             <Icons.Bot />
                         </div>
                         <div>
-                            <h3 className="text-sm font-bold text-white">Gemini 2.5 Flash • Ludfor Analyst Agent</h3>
-                            <p className="text-xs text-green-400 flex items-center gap-1"><span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span> Connected</p>
+                            <h3 className="text-xs md:text-sm font-bold text-white">Gemini 2.5 Flash • Ludfor Agent</h3>
+                            <p className="text-[10px] md:text-xs text-green-400 flex items-center gap-1"><span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span> Search Enabled</p>
                         </div>
                     </div>
 
-                    <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-800/50" ref={scrollRef}>
+                    <div className="flex-1 p-3 md:p-4 overflow-y-auto space-y-4 bg-slate-800/50" ref={scrollRef}>
                         {messages.map(msg => (
                             <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
+                                <div className={`max-w-[85%] rounded-2xl px-3 py-2 md:px-4 md:py-3 text-xs md:text-sm leading-relaxed ${
                                     msg.role === 'user' 
                                     ? 'bg-qr-secondary text-white rounded-br-none shadow-md' 
                                     : 'bg-slate-700 text-gray-200 rounded-bl-none shadow-sm'
@@ -454,15 +457,15 @@
                         )}
                     </div>
 
-                    <div className="p-4 bg-slate-900 border-t border-slate-700">
+                    <div className="p-3 md:p-4 bg-slate-900 border-t border-slate-700">
                         <div className="flex gap-2">
                             <input 
                                 type="text" 
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                                placeholder="Pergunte sobre EBITDA, Margens, Estratégia..."
-                                className="flex-1 bg-slate-800 border border-slate-600 text-white rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-qr-primary transition-all"
+                                placeholder="Pergunte sobre EBITDA, PLD, Mercado..."
+                                className="flex-1 bg-slate-800 border border-slate-600 text-white rounded-lg px-3 py-2 text-xs md:text-sm focus:outline-none focus:border-qr-primary transition-all"
                             />
                             <button 
                                 onClick={handleSend}
@@ -482,7 +485,16 @@
         function App() {
             const [isAuthenticated, setIsAuthenticated] = useState(false);
             const [activeTab, setActiveTab] = useState('overview');
-            const [isSidebarOpen, setSidebarOpen] = useState(true);
+            const [isSidebarOpen, setSidebarOpen] = useState(false); // Mobile: Starts closed
+
+            // Adjust sidebar initial state based on screen size
+            useEffect(() => {
+                if (window.innerWidth >= 1024) {
+                    setSidebarOpen(true);
+                }
+            }, []);
+
+            const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
             if (!isAuthenticated) {
                 return <LoginScreen onLogin={() => setIsAuthenticated(true)} />;
@@ -502,6 +514,14 @@
             return (
                 <div className="flex min-h-screen bg-slate-900 text-gray-100 overflow-hidden">
                     
+                    {/* Mobile Sidebar Backdrop */}
+                    {isSidebarOpen && (
+                        <div 
+                            className="fixed inset-0 bg-black/60 z-40 lg:hidden backdrop-blur-sm transition-opacity"
+                            onClick={() => setSidebarOpen(false)}
+                        ></div>
+                    )}
+
                     {/* Sidebar */}
                     <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-qr-dark border-r border-slate-800 transform transition-transform duration-300 lg:relative lg:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                         <div className="p-6 border-b border-slate-800 flex items-center justify-between">
@@ -509,13 +529,16 @@
                                 <h1 className="text-2xl font-bold tracking-tighter text-white">QR<span className="text-qr-primary">.Research</span></h1>
                                 <span className="text-xs text-gray-500 font-mono">CONFIDENTIAL</span>
                             </div>
+                            <button onClick={toggleSidebar} className="lg:hidden text-gray-400 hover:text-white">
+                                <Icons.X />
+                            </button>
                         </div>
                         
                         <nav className="mt-6 px-3 space-y-1">
                             {navItems.map((item) => (
                                 <button
                                     key={item.id}
-                                    onClick={() => setActiveTab(item.id)}
+                                    onClick={() => { setActiveTab(item.id); if(window.innerWidth < 1024) setSidebarOpen(false); }}
                                     className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                                         activeTab === item.id 
                                         ? 'bg-qr-primary/10 text-qr-primary border border-qr-primary/20' 
@@ -528,7 +551,7 @@
                             ))}
                         </nav>
 
-                        <div className="absolute bottom-0 left-0 w-full p-6 border-t border-slate-800">
+                        <div className="absolute bottom-0 left-0 w-full p-6 border-t border-slate-800 bg-qr-dark">
                             <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center font-bold text-xs text-white border border-slate-500">AN</div>
                                 <div>
@@ -540,24 +563,24 @@
                     </aside>
 
                     {/* Main Content */}
-                    <main className="flex-1 overflow-y-auto h-screen relative">
+                    <main className="flex-1 overflow-y-auto h-screen relative w-full">
                         {/* Mobile Header */}
-                        <div className="lg:hidden p-4 border-b border-slate-800 flex justify-between items-center bg-qr-dark">
-                            <h1 className="text-xl font-bold">QR.Research</h1>
-                            <button onClick={() => setSidebarOpen(!isSidebarOpen)} className="text-white">
-                                <Icons.Chart />
+                        <div className="lg:hidden p-4 border-b border-slate-800 flex justify-between items-center bg-qr-dark sticky top-0 z-30">
+                            <h1 className="text-lg font-bold">QR.Research</h1>
+                            <button onClick={toggleSidebar} className="text-white p-2">
+                                <Icons.Menu />
                             </button>
                         </div>
 
-                        {/* Header */}
-                        <header className="px-8 py-6 bg-slate-900/50 backdrop-blur-md sticky top-0 z-40 border-b border-slate-800 flex justify-between items-end">
+                        {/* Desktop Header */}
+                        <header className="px-4 py-6 md:px-8 bg-slate-900/50 backdrop-blur-md sticky top-0 z-20 border-b border-slate-800 flex justify-between items-end">
                             <div>
                                 <div className="flex items-center gap-2 mb-1">
-                                    <span className="bg-qr-secondary/20 text-qr-secondary text-xs font-mono px-2 py-0.5 rounded border border-qr-secondary/30">PRELIMINARY REPORT</span>
-                                    <span className="text-gray-500 text-xs font-mono">NOV 2025</span>
+                                    <span className="bg-qr-secondary/20 text-qr-secondary text-[10px] md:text-xs font-mono px-2 py-0.5 rounded border border-qr-secondary/30">PRELIMINARY</span>
+                                    <span className="text-gray-500 text-[10px] md:text-xs font-mono">NOV 2025</span>
                                 </div>
-                                <h2 className="text-3xl font-bold text-white">Ludfor Energia</h2>
-                                <p className="text-gray-400 text-sm">Target: Aquisição de Participação Minoritária (30-40%)</p>
+                                <h2 className="text-2xl md:text-3xl font-bold text-white">Ludfor Energia</h2>
+                                <p className="text-gray-400 text-xs md:text-sm">Target: Aquisição Minoritária (30-40%)</p>
                             </div>
                             <div className="hidden md:block text-right">
                                 <p className="text-2xl font-mono font-bold text-qr-accent">R$ 652M</p>
@@ -565,39 +588,37 @@
                             </div>
                         </header>
 
-                        <div className="p-8 max-w-7xl mx-auto pb-20">
+                        <div className="p-4 md:p-8 max-w-7xl mx-auto pb-20">
                             
                             {/* OVERVIEW TAB */}
                             {activeTab === 'overview' && (
                                 <div className="space-in fade-in">
-                                    {/* DEAL PROGRESS BAR - NOVO */}
                                     <DealProgressBar />
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6">
                                         {marketData.map((kpi, i) => (
-                                            <div key={i} className="bg-slate-800 p-5 rounded-xl border border-slate-700 shadow-lg">
-                                                <p className="text-gray-400 text-xs uppercase font-bold tracking-wider mb-1">{kpi.title}</p>
-                                                <p className="text-2xl font-bold text-white">{kpi.value}</p>
-                                                <p className="text-xs text-qr-secondary mt-1">{kpi.sub}</p>
+                                            <div key={i} className="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-lg">
+                                                <p className="text-gray-400 text-[10px] md:text-xs uppercase font-bold tracking-wider mb-1">{kpi.title}</p>
+                                                <p className="text-lg md:text-2xl font-bold text-white">{kpi.value}</p>
+                                                <p className="text-[10px] md:text-xs text-qr-secondary mt-1">{kpi.sub}</p>
                                             </div>
                                         ))}
                                     </div>
 
                                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                                        <div className="lg:col-span-2 bg-slate-800 p-6 rounded-xl border border-slate-700">
-                                            <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                                                <Icons.TrendingUp /> Crescimento Top-Line vs Rentabilidade
+                                        <div className="lg:col-span-2 bg-slate-800 p-4 md:p-6 rounded-xl border border-slate-700">
+                                            <h3 className="text-base md:text-lg font-bold text-white mb-6 flex items-center gap-2">
+                                                <Icons.TrendingUp /> Crescimento Top-Line
                                             </h3>
                                             <div className="h-64 w-full">
                                                 <FinancialChart data={revenueData} />
                                             </div>
                                             <p className="text-xs text-gray-500 mt-4 text-center italic">
-                                                Crescimento agressivo de receita (+112%) em 2024, porém com compressão de margem (Mix de Trading).
+                                                Receita +112% (2024), margem pressionada (Mix Trading).
                                             </p>
                                         </div>
 
                                         <div className="bg-slate-800 rounded-xl border border-slate-700 flex flex-col h-full">
-                                           {/* MAP WIDGET - NOVO */}
                                            <MapWidget />
                                         </div>
                                     </div>
@@ -607,12 +628,12 @@
                             {/* FINANCIALS TAB */}
                             {activeTab === 'financials' && (
                                 <div className="space-y-6 fade-in">
-                                    <div className="flex justify-between items-center border-b border-slate-700 pb-4">
+                                    <div className="flex flex-col md:flex-row justify-between md:items-center border-b border-slate-700 pb-4 gap-2">
                                         <div>
-                                            <h3 className="text-xl font-bold text-white">Análise Financeira & DRE</h3>
-                                            <p className="text-sm text-gray-400">Consolidado Auditado (2023-2024) e Prévia 1S25.</p>
+                                            <h3 className="text-xl font-bold text-white">Análise Financeira</h3>
+                                            <p className="text-sm text-gray-400">Consolidado Auditado & Prévia.</p>
                                         </div>
-                                        <span className="px-3 py-1 bg-qr-secondary/20 text-qr-secondary border border-qr-secondary rounded text-xs font-bold">R$ MILHÕES</span>
+                                        <span className="w-fit px-3 py-1 bg-qr-secondary/20 text-qr-secondary border border-qr-secondary rounded text-xs font-bold">R$ MILHÕES</span>
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -622,15 +643,13 @@
                                                 <span className="text-2xl font-bold text-white">652.2</span>
                                                 <span className="text-sm text-qr-accent mb-1">▲ 112%</span>
                                             </div>
-                                            <p className="text-[10px] text-gray-500 mt-2">vs 307.0 em 2023</p>
                                         </div>
                                         <div className="bg-slate-800 p-5 rounded-xl border border-slate-700">
-                                            <p className="text-xs text-gray-500 font-bold uppercase">Lucro Líquido Ajust. (2024)</p>
+                                            <p className="text-xs text-gray-500 font-bold uppercase">Lucro Líq. Ajust. (2024)</p>
                                             <div className="flex items-end gap-2 mt-1">
                                                 <span className="text-2xl font-bold text-white">32.0</span>
                                                 <span className="text-sm text-red-400 mb-1">▼ -31%</span>
                                             </div>
-                                            <p className="text-[10px] text-gray-500 mt-2">Impacto de Capex & Estrutura</p>
                                         </div>
                                         <div className="bg-slate-800 p-5 rounded-xl border border-slate-700">
                                             <p className="text-xs text-gray-500 font-bold uppercase">Receita YTD (1S25)</p>
@@ -638,121 +657,124 @@
                                                 <span className="text-2xl font-bold text-qr-primary">483.0</span>
                                                 <span className="text-sm text-gray-400 mb-1">Jan-Jun</span>
                                             </div>
-                                            <p className="text-[10px] text-gray-500 mt-2">Run-rate anualizado: ~R$ 960M</p>
                                         </div>
                                     </div>
 
                                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                        <div className="bg-slate-800 p-6 rounded-xl border border-slate-700">
-                                            <h4 className="font-bold text-white mb-4 flex items-center gap-2"><Icons.Chart/> Evolução Receita vs Margem</h4>
-                                            <div className="h-72">
+                                        <div className="bg-slate-800 p-4 md:p-6 rounded-xl border border-slate-700">
+                                            <h4 className="font-bold text-white mb-4 flex items-center gap-2"><Icons.Chart/> Receita vs Margem</h4>
+                                            <div className="h-64 md:h-72">
                                                 <FinancialChart data={revenueData} />
                                             </div>
                                         </div>
-                                        <div className="bg-slate-800 p-6 rounded-xl border border-slate-700">
-                                            <h4 className="font-bold text-white mb-4 flex items-center gap-2"><Icons.DollarSign/> Bottom Line (Lucro Líquido)</h4>
-                                            <div className="h-72">
+                                        <div className="bg-slate-800 p-4 md:p-6 rounded-xl border border-slate-700">
+                                            <h4 className="font-bold text-white mb-4 flex items-center gap-2"><Icons.DollarSign/> Bottom Line</h4>
+                                            <div className="h-64 md:h-72">
                                                 <ProfitChart data={revenueData} />
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="bg-slate-800 p-6 rounded-xl border border-slate-700">
-                                        <h4 className="font-bold text-white mb-3">Comentários da Controladoria (DFs)</h4>
-                                        <div className="space-y-3 text-sm text-gray-300">
-                                            <p><strong className="text-qr-secondary">Receita:</strong> O salto de R$ 307M para R$ 652M reflete a maturação da mesa de trading e a entrada agressiva no ACL.</p>
-                                            <p><strong className="text-qr-warning">Margens:</strong> A margem bruta foi comprimida (24% -> 10%) devido ao mix de produtos (maior peso de comercialização, que possui spread menor que a gestão pura) e custos de estruturação da filial SP.</p>
-                                            <p><strong className="text-qr-accent">Capex:</strong> Plano de R$ 500M até 2027 visa justamente recuperar margem através da verticalização (Geração Própria Solar/Hídrica), reduzindo exposição à volatilidade do PLD.</p>
                                         </div>
                                     </div>
                                 </div>
                             )}
 
-                            {/* TEAM TAB - ATUALIZADO */}
+                            {/* TEAM TAB */}
                             {activeTab === 'team' && (
                                 <div className="space-y-6 fade-in">
                                     <div className="flex justify-between items-center mb-4">
-                                        <h3 className="text-xl font-bold text-white">Executivos Chave & Sócios</h3>
-                                        <span className="text-sm text-gray-500">Dados Organograma Set/25</span>
+                                        <h3 className="text-xl font-bold text-white">Executivos Chave</h3>
+                                        <span className="text-sm text-gray-500">Organograma Set/25</span>
                                     </div>
                                     
                                     <div className="grid grid-cols-1 gap-6">
-                                        {/* Sócios */}
+                                        {/* Sócios (Stacked on mobile) */}
                                         <div className="bg-slate-900/50 border border-slate-700 p-4 rounded-lg">
-                                            <h4 className="text-qr-accent text-sm font-bold uppercase mb-3">Estrutura Societária (Holding)</h4>
-                                            <div className="flex gap-4">
+                                            <h4 className="text-qr-accent text-sm font-bold uppercase mb-3">Holding</h4>
+                                            <div className="flex flex-col md:flex-row gap-4">
                                                 <div className="flex-1 bg-slate-800 p-3 rounded border border-slate-600">
-                                                    <span className="block text-white font-bold">Douglas Ludwig</span>
+                                                    <span className="block text-white font-bold text-sm md:text-base">Douglas Ludwig</span>
                                                     <span className="text-xs text-gray-400">Sócio Majoritário (~90%)</span>
                                                 </div>
                                                 <div className="flex-1 bg-slate-800 p-3 rounded border border-slate-600">
-                                                    <span className="block text-white font-bold">Glauber Ludwig</span>
+                                                    <span className="block text-white font-bold text-sm md:text-base">Glauber Ludwig</span>
                                                     <span className="text-xs text-gray-400">Sócio Minoritário (~10%)</span>
-                                                </div>
-                                                <div className="w-1/4 bg-slate-800 p-3 rounded border border-slate-600 opacity-75">
-                                                    <span className="block text-white font-bold">Outros</span>
-                                                    <span className="text-xs text-gray-400">Sierra/Satoru (&lt;1%)</span>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <ManagementCard 
                                             name="Douglas Ludwig"
-                                            role="CEO & Sócio Majoritário"
+                                            role="CEO & Sócio"
                                             image="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-                                            bio={`Engenheiro de formação, Douglas Ludwig é o principal executivo da Ludfor Energia e sócio majoritário do grupo (89.8%). Filho do fundador Valdir Ludwig, Douglas atua como Diretor Executivo, liderando a empresa fundada em 1995 em Bento Gonçalves (RS). Sob sua gestão, a Ludfor expandiu-se de uma gestora de energia regional para um grupo diversificado de atuação nacional.
-
-Douglas foi peça-chave na incorporação de novas frentes de negócio ao longo dos anos, como a criação da comercializadora de energia em 2017 para ingressar no mercado livre, além do braço de investimentos em geração (Origem Energia) e serviços de operação de usinas (Operasul). Ele é reconhecido por seu foco em relacionamento de longo prazo com clientes.`}
-                                            expertise={['Liderança Estratégica', 'Engenharia', 'Expansão Comercial', 'Relacionamento']}
+                                            bio={`Engenheiro, filho do fundador Valdir Ludwig. Transformou a gestora regional em plataforma nacional. Criou comercializadora (2017) e braços de Geração e Serviços.`}
+                                            expertise={['Liderança', 'Engenharia', 'Comercial']}
                                         />
 
                                         <ManagementCard 
-                                            name="André Philipe Lima Passari"
-                                            role="Diretor Financeiro (CFO)"
+                                            name="André Philipe Passari"
+                                            role="CFO"
                                             image="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-                                            bio={`André Passari é o Diretor Financeiro da Ludfor Energia, responsável pela gestão financeira e estratégica do grupo. Profissional com mais de 20 anos de experiência na área financeira, construiu carreira em posições de liderança em diversos setores, incluindo banco de investimentos e empresas de energia.
-
-Ingressou na Ludfor em 2023 para suportar a expansão geográfica. Antes, atuou como CFO no Grupo Diferencial Energia. Na Ludfor, lidera finanças, controladoria e RI, garantindo a sustentabilidade dos investimentos. Sua chegada coincidiu com a migração da matriz da comercializadora para São Paulo.`}
-                                            expertise={['Finanças Corporativas', 'M&A', 'Governança', 'Mercado de Capitais']}
+                                            bio={`20+ anos de experiência (Ex-Diferencial Energia). Lidera finanças, M&A e RI. Responsável pela migração da trading para SP e aquisição da Trifase.`}
+                                            expertise={['Finanças', 'M&A', 'Governança']}
                                         />
                                     </div>
                                 </div>
                             )}
 
-                            {/* DOCS TAB */}
+                            {/* DOCS TAB - RESPONSIVE LIST */}
                             {activeTab === 'docs' && (
                                 <div className="space-y-6 fade-in">
-                                    <div className="flex justify-between items-center border-b border-slate-700 pb-4">
+                                    <div className="flex flex-col md:flex-row justify-between md:items-center border-b border-slate-700 pb-4 gap-3">
                                         <div>
                                             <h3 className="text-xl font-bold text-white">Data Room</h3>
-                                            <p className="text-sm text-gray-400">Documentação disponibilizada para análise preliminar.</p>
+                                            <p className="text-sm text-gray-400">Documentação para análise.</p>
                                         </div>
-                                        <button className="bg-qr-secondary hover:bg-blue-600 text-white px-4 py-2 rounded text-sm font-bold flex items-center gap-2 transition-colors">
-                                            <Icons.Download /> Baixar Todos (.zip)
+                                        <button className="bg-qr-secondary hover:bg-blue-600 text-white px-4 py-2 rounded text-sm font-bold flex items-center justify-center gap-2 transition-colors w-full md:w-auto">
+                                            <Icons.Download /> Baixar Tudo (.zip)
                                         </button>
                                     </div>
 
                                     <div className="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
-                                        <div className="grid grid-cols-12 bg-slate-900 p-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                                        {/* Desktop Headers (Hidden on Mobile) */}
+                                        <div className="hidden md:grid grid-cols-12 bg-slate-900 p-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
                                             <div className="col-span-6">Nome do Arquivo</div>
                                             <div className="col-span-2">Tipo</div>
                                             <div className="col-span-2">Data</div>
                                             <div className="col-span-2 text-right">Tamanho</div>
                                         </div>
+                                        
                                         <div className="divide-y divide-slate-700">
                                             {docsList.map((doc) => (
-                                                <div key={doc.id} className="grid grid-cols-12 p-4 items-center hover:bg-slate-700/50 transition-colors group cursor-pointer">
-                                                    <div className="col-span-6 flex items-center gap-3">
-                                                        <div className="p-2 bg-slate-700 rounded text-qr-primary group-hover:bg-qr-primary group-hover:text-qr-dark transition-colors">
+                                                <div key={doc.id} className="p-4 hover:bg-slate-700/50 transition-colors group cursor-pointer">
+                                                    {/* Desktop Layout */}
+                                                    <div className="hidden md:grid grid-cols-12 items-center">
+                                                        <div className="col-span-6 flex items-center gap-3">
+                                                            <div className="p-2 bg-slate-700 rounded text-qr-primary group-hover:bg-qr-primary group-hover:text-qr-dark">
+                                                                <Icons.File />
+                                                            </div>
+                                                            <span className="text-gray-200 text-sm font-medium">{doc.name}</span>
+                                                        </div>
+                                                        <div className="col-span-2">
+                                                            <span className="px-2 py-1 bg-slate-900 rounded text-xs text-gray-400 border border-slate-700">{doc.type}</span>
+                                                        </div>
+                                                        <div className="col-span-2 text-sm text-gray-400">{doc.date}</div>
+                                                        <div className="col-span-2 text-right text-sm text-gray-500 font-mono">{doc.size}</div>
+                                                    </div>
+
+                                                    {/* Mobile Layout (Stacked) */}
+                                                    <div className="md:hidden flex items-start gap-3">
+                                                        <div className="p-2 bg-slate-700 rounded text-qr-primary shrink-0">
                                                             <Icons.File />
                                                         </div>
-                                                        <span className="text-gray-200 text-sm font-medium">{doc.name}</span>
+                                                        <div className="flex-1 min-w-0">
+                                                            <p className="text-gray-200 text-sm font-medium truncate">{doc.name}</p>
+                                                            <div className="flex gap-2 mt-1">
+                                                                <span className="text-xs text-gray-500">{doc.date}</span>
+                                                                <span className="text-xs text-gray-500">•</span>
+                                                                <span className="text-xs text-gray-500">{doc.size}</span>
+                                                            </div>
+                                                        </div>
+                                                        <span className="px-2 py-1 bg-slate-900 rounded text-[10px] text-gray-400 border border-slate-700 self-start">{doc.type}</span>
                                                     </div>
-                                                    <div className="col-span-2">
-                                                        <span className="px-2 py-1 bg-slate-900 rounded text-xs text-gray-400 border border-slate-700">{doc.type}</span>
-                                                    </div>
-                                                    <div className="col-span-2 text-sm text-gray-400">{doc.date}</div>
-                                                    <div className="col-span-2 text-right text-sm text-gray-500 font-mono">{doc.size}</div>
                                                 </div>
                                             ))}
                                         </div>
@@ -763,68 +785,55 @@ Ingressou na Ludfor em 2023 para suportar a expansão geográfica. Antes, atuou 
                             {/* AI ADVISOR TAB */}
                             {activeTab === 'ai' && (
                                 <div className="space-y-6 fade-in">
-                                    <div className="bg-gradient-to-r from-slate-800 to-slate-900 p-6 rounded-xl border border-slate-700 mb-6 flex justify-between items-center">
-                                        <div>
-                                            <h3 className="text-2xl font-bold text-white mb-2">AI Advisor</h3>
-                                            <p className="text-gray-400 text-sm">
-                                                Utilize a inteligência artificial (Gemini) para extrair insights rápidos sobre o setor elétrico e a tese Ludfor.
-                                            </p>
-                                        </div>
+                                    <div className="bg-gradient-to-r from-slate-800 to-slate-900 p-4 md:p-6 rounded-xl border border-slate-700 mb-4 md:mb-6">
+                                        <h3 className="text-xl md:text-2xl font-bold text-white mb-2">AI Advisor</h3>
+                                        <p className="text-gray-400 text-xs md:text-sm">
+                                            IA com acesso ao Google Search. Pergunte sobre PLD, regulação e notícias.
+                                        </p>
                                     </div>
                                     <ChatInterface />
                                 </div>
                             )}
 
-                            {/* STRATEGY TAB - ATUALIZADO */}
+                            {/* STRATEGY TAB */}
                             {activeTab === 'strategy' && (
                                 <div className="space-y-6 fade-in">
-                                    <div className="bg-gradient-to-r from-slate-800 to-slate-900 p-8 rounded-xl border border-slate-700 mb-6">
-                                        <h3 className="text-2xl font-bold text-white mb-2">Visão Estratégica 2025-2027</h3>
-                                        <p className="text-gray-400 max-w-3xl">
-                                            Transição de "Líder Regional" para "Plataforma Nacional Integrada". O plano envolve CAPEX intensivo (R$ 500M) para geração própria e consolidação de mercado via M&A.
+                                    <div className="bg-gradient-to-r from-slate-800 to-slate-900 p-6 md:p-8 rounded-xl border border-slate-700 mb-6">
+                                        <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Estratégia 2025-2027</h3>
+                                        <p className="text-gray-400 text-sm md:text-base">
+                                            De "Líder Regional" para "Plataforma Nacional Integrada". CAPEX R$ 500M (Geração) + M&A.
                                         </p>
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div className="bg-slate-800 p-6 rounded-xl border-l-4 border-qr-primary shadow-lg">
-                                            <h4 className="text-lg font-bold text-white mb-3">Estrutura de Negócio (Holdings)</h4>
-                                            <ul className="space-y-3 text-sm text-gray-300">
-                                                <li className="flex items-start gap-2">
-                                                    <span className="text-qr-primary font-bold">01. Comercializadoras:</span> 
-                                                    <span>DNA, Aquarium, Trust, Fuel e NuEnergy (Veículos de trading sob Ludfor Participações).</span>
+                                        <div className="bg-slate-800 p-4 md:p-6 rounded-xl border-l-4 border-qr-primary shadow-lg">
+                                            <h4 className="text-base md:text-lg font-bold text-white mb-3">Holdings</h4>
+                                            <ul className="space-y-3 text-xs md:text-sm text-gray-300">
+                                                <li className="flex flex-col">
+                                                    <span className="text-qr-primary font-bold">Comercializadoras:</span> 
+                                                    <span>DNA, Aquarium, Trust, Fuel, NuEnergy.</span>
                                                 </li>
-                                                <li className="flex items-start gap-2">
-                                                    <span className="text-qr-primary font-bold">02. Geração (Origem Energia):</span> 
-                                                    <span>Participações em diversas SPEs (CGH Bandiera, UFV Salinas, PCH Ambar, etc).</span>
+                                                <li className="flex flex-col">
+                                                    <span className="text-qr-primary font-bold">Geração (Origem):</span> 
+                                                    <span>SPEs (CGH Bandiera, UFV Salinas, PCH Ambar).</span>
                                                 </li>
-                                                <li className="flex items-start gap-2">
-                                                    <span className="text-qr-primary font-bold">03. Varejo & GD:</span> 
-                                                    <span>Simplifica Energia GD S.A. e Consórcio Simplifica (Foco em Baixa Tensão).</span>
-                                                </li>
-                                                <li className="flex items-start gap-2">
-                                                    <span className="text-qr-primary font-bold">04. Serviços & Eng:</span> 
-                                                    <span>Trifase (Engenharia PE) e Enerbrax (Consultoria RS).</span>
+                                                <li className="flex flex-col">
+                                                    <span className="text-qr-primary font-bold">Varejo:</span> 
+                                                    <span>Simplifica Energia GD S.A.</span>
                                                 </li>
                                             </ul>
                                         </div>
 
-                                        <div className="bg-slate-800 p-6 rounded-xl border-l-4 border-qr-accent shadow-lg">
-                                            <h4 className="text-lg font-bold text-white mb-3">M&A Recente & Subsidiárias</h4>
+                                        <div className="bg-slate-800 p-4 md:p-6 rounded-xl border-l-4 border-qr-accent shadow-lg">
+                                            <h4 className="text-base md:text-lg font-bold text-white mb-3">M&A Recente</h4>
                                             <div className="space-y-4">
                                                 <div className="bg-slate-900 p-3 rounded border border-slate-700">
-                                                    <span className="text-xs text-gray-500 block">Aquisição 2023</span>
-                                                    <span className="text-white font-bold">Enerbrax Consultoria</span>
-                                                    <span className="text-xs text-gray-400 block mt-1">Foco: Gestão no RS. 100% Ludfor.</span>
+                                                    <span className="text-white font-bold text-sm">Enerbrax</span>
+                                                    <span className="text-xs text-gray-400 block">Gestão RS (100% Ludfor).</span>
                                                 </div>
                                                 <div className="bg-slate-900 p-3 rounded border border-slate-700">
-                                                    <span className="text-xs text-gray-500 block">Aquisição 2024</span>
-                                                    <span className="text-white font-bold">Trifase Soluções e Engenharia</span>
-                                                    <span className="text-xs text-gray-400 block mt-1">Foco: Expansão Nordeste (PE). 55% Ludfor.</span>
-                                                </div>
-                                                <div className="bg-slate-900 p-3 rounded border border-slate-700">
-                                                    <span className="text-xs text-gray-500 block">Tech</span>
-                                                    <span className="text-white font-bold">Alka Tech Consultoria</span>
-                                                    <span className="text-xs text-gray-400 block mt-1">Braço tecnológico.</span>
+                                                    <span className="text-white font-bold text-sm">Trifase</span>
+                                                    <span className="text-xs text-gray-400 block">Engenharia PE (55% Ludfor).</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -832,27 +841,20 @@ Ingressou na Ludfor em 2023 para suportar a expansão geográfica. Antes, atuou 
                                 </div>
                             )}
 
-                            {/* MEETING & RISKS TABS */}
+                            {/* MEETING & RISKS */}
                             {(activeTab === 'meeting' || activeTab === 'risks') && (
                                 <div className="space-y-6 fade-in">
                                     {activeTab === 'meeting' ? (
                                         <>
-                                            <div className="bg-qr-secondary/10 border border-qr-secondary/30 p-4 rounded-lg mb-6 flex items-center gap-3">
-                                                <Icons.Target className="text-qr-secondary" />
-                                                <div>
-                                                    <h4 className="font-bold text-white">Objetivo da Reunião</h4>
-                                                    <p className="text-sm text-gray-300">Construir rapport, validar tese de expansão e mapear uso de proceeds.</p>
-                                                </div>
-                                            </div>
                                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                                 <div className="space-y-4">
-                                                    <h3 className="text-qr-accent font-bold flex items-center gap-2"><Icons.CheckCircle size={18}/> Pauta Prioritária</h3>
-                                                    <InsightCard title="Visão de Longo Prazo" type="success">Como a QR pode acelerar o plano de R$ 500M em Capex?</InsightCard>
-                                                    <InsightCard title="Diferenciais" type="success">Manutenção da qualidade no pós-venda em escala.</InsightCard>
+                                                    <h3 className="text-qr-accent font-bold flex items-center gap-2"><Icons.CheckCircle size={18}/> Prioridades</h3>
+                                                    <InsightCard title="Visão Longo Prazo" type="success">Aceleração Capex R$ 500M.</InsightCard>
+                                                    <InsightCard title="Diferenciais" type="success">Qualidade pós-venda.</InsightCard>
                                                 </div>
                                                 <div className="space-y-4">
                                                     <h3 className="text-qr-warning font-bold flex items-center gap-2"><Icons.AlertTriangle size={18}/> Cautela</h3>
-                                                    <InsightCard title="Governança" type="warning">Respeito à cultura familiar e figura dos fundadores.</InsightCard>
+                                                    <InsightCard title="Governança" type="warning">Respeito à cultura familiar.</InsightCard>
                                                 </div>
                                             </div>
                                         </>
@@ -864,17 +866,6 @@ Ingressou na Ludfor em 2023 para suportar a expansão geográfica. Antes, atuou 
                                                     <li>Valuation prematuro</li>
                                                     <li>Ameaça ao controle</li>
                                                 </ul>
-                                            </div>
-                                            <div className="bg-slate-800 border border-slate-700 p-6 rounded-xl col-span-2">
-                                                <h4 className="text-white font-bold mb-2">Matriz de Risco</h4>
-                                                <div className="space-y-4 mt-4">
-                                                    <div>
-                                                        <p className="text-sm font-bold text-gray-200">Risco de Execução (M&A)</p>
-                                                        <div className="w-full bg-slate-700 h-2 rounded-full mt-1">
-                                                            <div className="bg-yellow-500 h-2 rounded-full" style={{width: '60%'}}></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     )}
